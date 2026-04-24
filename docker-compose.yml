@@ -31,6 +31,7 @@ services:
     restart: unless-stopped
     environment:
       NUXT_PUBLIC_API_BASE_URL: ${NUXT_PUBLIC_API_BASE_URL}
+      NUXT_API_BASE_URL: ${NUXT_API_BASE_URL}
     ports:
       - "3000:3000"
 
