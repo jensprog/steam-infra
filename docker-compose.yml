@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: steamdb
+      POSTGRES_USER: steamuser
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  steam-api:
+    image: gitlab.lnu.se:5050/1dv027/student/jk224vx/exercises/steam-api
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://steamuser:${POSTGRES_PASSWORD}@postgres/steamdb
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ALGORITHM: ${JWT_ALGORITHM}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI}
+      CORS_ORIGINS: ${CORS_ORIGINS}
+    depends_on:
+      - postgres
+
+  steam-data:
+    image: gitlab.lnu.se:5050/1dv027/student/jk224vx/exercises/steam-data
+    restart: unless-stopped
+    environment:
+      NUXT_PUBLIC_API_BASE_URL: ${NUXT_PUBLIC_API_BASE_URL}
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:
