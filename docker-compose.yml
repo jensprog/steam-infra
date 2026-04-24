@@ -8,6 +8,8 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - steamnet
 
   steam-api:
     image: gitlab.lnu.se:5050/1dv027/student/jk224vx/exercises/steam-api
@@ -25,6 +27,9 @@ services:
       CORS_ORIGINS: ${CORS_ORIGINS}
     depends_on:
       - postgres
+    networks:
+      steamnet:
+        ipv4_address: 172.20.0.10
 
   steam-data:
     image: gitlab.lnu.se:5050/1dv027/student/jk224vx/exercises/steam-data
@@ -34,6 +39,15 @@ services:
       NUXT_API_BASE_URL: ${NUXT_API_BASE_URL}
     ports:
       - "3000:3000"
+    networks:
+      - steamnet
+
+networks:
+  steamnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
 
 volumes:
   postgres_data:
