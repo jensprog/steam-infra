@@ -12,6 +12,8 @@ services:
   steam-api:
     image: gitlab.lnu.se:5050/1dv027/student/jk224vx/exercises/steam-api
     restart: unless-stopped
+    ports:
+      - "8000:8000"
     environment:
       DATABASE_URL: postgresql://steamuser:${POSTGRES_PASSWORD}@postgres/steamdb
       JWT_SECRET: ${JWT_SECRET}
