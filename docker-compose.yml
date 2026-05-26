@@ -12,7 +12,7 @@ services:
       - steamnet
 
   steam-api:
-    image: gitlab.lnu.se:5050/1dv027/student/jk224vx/exercises/steam-api
+    image: ghcr.io/jensprog/steam-api:latest
     platform: linux/amd64
     restart: unless-stopped
     ports:
@@ -33,7 +33,7 @@ services:
         ipv4_address: 172.20.0.10
 
   steam-data:
-    image: gitlab.lnu.se:5050/1dv027/student/jk224vx/exercises/steam-data
+    image: ghcr.io/jensprog/steam-data:latest
     platform: linux/amd64
     restart: unless-stopped
     environment:
