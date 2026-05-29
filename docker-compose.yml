@@ -26,6 +26,7 @@ services:
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
       GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI}
       CORS_ORIGINS: ${CORS_ORIGINS}
+      STEAM_API_KEY: ${STEAM_API_KEY}
     depends_on:
       - postgres
     networks:
